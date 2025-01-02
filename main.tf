@@ -1,0 +1,9 @@
+module "tools" {
+  for_each = var.tools
+  source = "./modules/ec2"
+  sg_port = each.value["port_no"]
+  tool_name = each.key
+  size_volume=each.value["size_volume"]
+  domain_name = var.domain_name
+  zoneid = var.zoneid
+}
