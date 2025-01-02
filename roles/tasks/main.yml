@@ -8,6 +8,12 @@
     name: vault
     state: installed
 
+
+- name: "copy vault hcl file"
+  ansible.builtin.copy:
+    src: vault.hcl
+    dest: /etc/vault.d/vault.hcl
+
 - name: "restart hashicorp vault repo"
   ansible.builtin.systemd_service:
     name: vault
