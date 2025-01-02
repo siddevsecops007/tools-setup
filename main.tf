@@ -4,6 +4,7 @@ module "tools" {
   sg_port = each.value["port_no"]
   tool_name = each.key
   size_volume=each.value["size_volume"]
+  instance_type = each.value["instance_type"]
   domain_name = var.domain_name
   zoneid = var.zoneid
 }
