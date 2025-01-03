@@ -99,11 +99,11 @@ resource "vault_generic_secret" "payment" {
   path = "${vault_mount.roboshop-dev.path}/payment"
   data_json = <<EOT
   {
-    "CART_HOST": "cart-{{ env }}.siddevsecops.icu",
+    "CART_HOST": "cart-dev.siddevsecops.icu",
     "CART_PORT":  "8080",
-    "USER_HOST":  "user-{{ env }}.siddevsecops.icu",
+    "USER_HOST":  "user-dev.siddevsecops.icu",
     "USER_PORT":  "8080",
-    "AMQP_HOST":  "rabbitmq-{{ env }}.siddevsecops.icu",
+    "AMQP_HOST":  "rabbitmq-dev.siddevsecops.icu",
     "AMQP_USER":  "roboshop",
     "AMQP_PASS":  "roboshop123"
 
