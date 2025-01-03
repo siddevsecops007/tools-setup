@@ -60,3 +60,75 @@ resource "vault_generic_secret" "catalogue" {
   }
   EOT
 }
+
+
+resource "vault_generic_secret" "user" {
+path = "${vault_mount.roboshop-dev.path}/user"
+data_json = <<EOT
+  {
+    "MONGO": "true",
+    "REDIS_URL":  "redis://redis-dev.siddevsecops.icu:6379",
+    "MONGO_URL":  "mongodb://mongodb-dev.siddevsecops.icu:27017/users"
+  }
+  EOT
+}
+resource "vault_generic_secret" "cart" {
+  path = "${vault_mount.roboshop-dev.path}/cart"
+  data_json = <<EOT
+  {
+    "User": "roboshop",
+    "REDIS_HOST": "redis-dev.siddevsecops.icu",
+    "CATALOGUE_HOST":  "catalogue-dev.siddevsecops.icu",
+    "CATALOGUE_PORT":  "8080"
+  }
+  EOT
+}
+
+resource "vault_generic_secret" "shipping" {
+  path = "${vault_mount.roboshop-dev.path}/shipping"
+  data_json = <<EOT
+  {
+    "User": "roboshop",
+    "CART_ENDPOINT":  "cart-dev.siddevsecops.icu:8080",
+    "DB_HOST":  "mysql-dev.siddevsecops.icu",
+    "mysql_root_password":  "Roboshop@1"
+  }
+  EOT
+}
+
+resource "vault_generic_secret" "payment" {
+  path = "${vault_mount.roboshop-dev.path}/payment"
+  data_json = <<EOT
+  {
+    "CART_HOST": "cart-{{ env }}.siddevsecops.icu",
+    "CART_PORT":  "8080",
+    "USER_HOST":  "user-{{ env }}.siddevsecops.icu",
+    "USER_PORT":  "8080",
+    "AMQP_HOST":  "rabbitmq-{{ env }}.siddevsecops.icu",
+    "AMQP_USER":  "roboshop",
+    "AMQP_PASS":  "roboshop123"
+
+  }
+  EOT
+}
+
+
+resource "vault_generic_secret" "mysql" {
+  path = "${vault_mount.roboshop-dev.path}/mysql"
+  data_json = <<EOT
+  {
+    "mysql_root_password":  "Roboshop@1"
+  }
+  EOT
+}
+
+resource "vault_generic_secret" "rabbitmq" {
+  path = "${vault_mount.roboshop-dev.path}/rabbitmq"
+  data_json = <<EOT
+  {
+    "rabbitMQ_user":  "roboshop",
+    "rabbitMQ_password":  "roboshop123"
+
+  }
+  EOT
+}
