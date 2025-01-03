@@ -76,7 +76,6 @@ resource "vault_generic_secret" "cart" {
   path = "${vault_mount.roboshop-dev.path}/cart"
   data_json = <<EOT
   {
-    "User": "roboshop",
     "REDIS_HOST": "redis-dev.siddevsecops.icu",
     "CATALOGUE_HOST":  "catalogue-dev.siddevsecops.icu",
     "CATALOGUE_PORT":  "8080"
