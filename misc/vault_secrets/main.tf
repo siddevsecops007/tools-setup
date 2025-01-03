@@ -132,3 +132,24 @@ resource "vault_generic_secret" "rabbitmq" {
   }
   EOT
 }
+
+
+resource "vault_mount" "infra_secrets" {
+  path        = "infra_secrets"
+  type        = "kv"
+  options     = { version = "2" }
+  description = "Common infra secrets"
+}
+
+
+resource "vault_generic_secret" "ssh" {
+  path = "${vault_mount.infra_secrets.path}/ssh"
+  data_json = <<EOT
+  {
+    "user": "ec2-user",
+    "password": "DevOps321"
+
+  }
+  EOT
+}
+
