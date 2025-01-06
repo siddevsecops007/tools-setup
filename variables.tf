@@ -5,11 +5,13 @@ variable "tools" {
       port_no          = 8200
       size_volume      = 20
       instance_type    = "t3.small"
+      policy_list      = ["ec2:DescribeKeyPairs"]
     }
     github-runner = {
       port_no          = 80
       size_volume      = 20
       instance_type    = "t3.small"
+      policy_list      = ["ec2:*", "route53:*"]
     }
   }
 }

@@ -52,7 +52,10 @@ resource "aws_instance" "instance" {
       instance_interruption_behavior = "stop"
     }
   }
+  iam_instance_profile = aws_iam_instance_profile.instance_profile.name
+
 }
+
 
 
 
