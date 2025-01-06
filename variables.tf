@@ -4,7 +4,12 @@ variable "tools" {
     vault = {
       port_no          = 8200
       size_volume      = 20
-      instance_type    = "t2.micro"
+      instance_type    = "t3.small"
+    }
+    github-runner = {
+      port_no          = 80
+      size_volume      = 20
+      instance_type    = "t3.small"
     }
   }
 }

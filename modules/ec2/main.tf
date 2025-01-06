@@ -45,6 +45,13 @@ resource "aws_instance" "instance" {
   root_block_device {
     volume_size = var.size_volume
   }
+  instance_market_options {
+    market_type = "spot"
+    spot_options {
+      spot_type = "persistent"
+      instance_interruption_behavior = "stop"
+    }
+  }
 }
 
 
