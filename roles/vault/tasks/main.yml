@@ -1,5 +1,3 @@
-
-
 - name: "Download vault repo"
   ansible.builtin.get_url:
     url: https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
