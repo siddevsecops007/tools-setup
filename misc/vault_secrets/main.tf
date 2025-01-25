@@ -45,7 +45,7 @@ resource "vault_generic_secret" "frontend" {
     "user_url":   "http://user-dev.siddevsecops.icu:8080/",
     "cart_url":   "http://cart-dev.siddevsecops.icu:8080/",
     "shipping_url":   "http://shipping-dev.siddevsecops.icu:8080/",
-    "payment_url":   "http://payment-dev.siddevsecops.icu:8080/"
+    "payment_url":   "http://payment-dev.siddevsecops.icu:8080/",
     "CATALOGUE_HOST" : "catalogue-dev.siddevsecops.icu",
     "CATALOGUE_PORT" : 8080,
     "USER_HOST" : "user-dev.siddevsecops.icu",
