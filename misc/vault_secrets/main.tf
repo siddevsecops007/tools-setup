@@ -136,7 +136,7 @@ resource "vault_generic_secret" "mysql" {
   path = "${vault_mount.roboshop-dev.path}/mysql"
   data_json = <<EOT
   {
-    "mysql_root_password":  "Roboshop@1"
+    "mysql_root_password":  "RoboShop@1"
   }
   EOT
 }
