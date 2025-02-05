@@ -75,11 +75,20 @@
 #  ansible.builtin.dnf:
 #    name: docker
 #    state: installed
+
+- name: install docker
+  ansible.builtin.shell: |
+    curl -O /etc/yum.repos.d/docker.repo https://download.docker.com/linux/rhel/docker-ce.repo
+    dnf install docker-ce --nobest -y
+    usermod -a -G docker ec2-user
+    systemctl enable docker 
+    systemctl start docker
 #
 #- name: lvm layout
 #  ansible.builtin.include_role:
 #    name: common
 #    tasks_from: lvm
+
 
 - name: Increase disk partition
   ansible.builtin.shell: growpart /dev/nvme0n1 4
