@@ -71,19 +71,19 @@
 #    name: kubectl
 #    state: installed
 
-#- name: install docker
-#  ansible.builtin.dnf:
-#    name: docker
-#    state: installed
+- name: install docker
+  ansible.builtin.dnf:
+    name: docker
+    state: installed
 
-- name: Install Docker
-  ansible.builtin.shell: |
-    curl -o /etc/yum.repos.d/docker.repo https://download.docker.com/linux/rhel/docker-ce.repo
-    dnf install docker-ce --nobest -y
-    usermod -a -G docker github-runner
-    systemctl enable docker
-    systemctl start docker
-    
+#- name: Install Docker
+#  ansible.builtin.shell: |
+#    curl -o /etc/yum.repos.d/docker.repo https://download.docker.com/linux/rhel/docker-ce.repo
+#    dnf install docker-ce --nobest -y
+#    usermod -a -G docker github-runner
+#    systemctl enable docker
+#    systemctl start docker
+#
 
 #- name: lvm layout
 #  ansible.builtin.include_role:
