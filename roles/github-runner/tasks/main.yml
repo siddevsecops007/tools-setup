@@ -1,80 +1,80 @@
 - name: adding set prompt
   ansible.builtin.shell: set-prompt {{ tool_name }}
 
-- name: add github runner user
-  ansible.builtin.user:
-    name: github-runner
-
-- name: add directory in server
-  ansible.builtin.file:
-    path: /actions-runner
-    state: directory
-    owner: github-runner
-    group: github-runner
-
-- name: download and extract runner
-  ansible.builtin.unarchive:
-    src: https://github.com/actions/runner/releases/download/v2.321.0/actions-runner-linux-x64-2.321.0.tar.gz
-    dest: /actions-runner
-    remote_src: yes
-    owner: github-runner
-    group: github-runner
-
-- name: install libicu
-  ansible.builtin.dnf:
-    name: libicu
-    state: installed
-
-- name: get runner token
-  ansible.builtin.shell: |
-    gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /orgs/siddevsecops007/actions/runners/registration-token | jq .token
-  register: token
-  become_user: ec2-user
-
-- name: register runner with token
-  ansible.builtin.shell: |
-    ./config.sh --unattended --url https://github.com/siddevsecops007 --token {{ token.stdout }} --name {{ ansible_hostname }} --runnergroup Default
-  become_user: github-runner
-  args:
-    chdir: /actions-runner
-  ignore_errors: yes
-
-- name: copy service file
-  ansible.builtin.copy:
-    src: github-runner.service
-    dest: /etc/systemd/system/github-runner.service
-
-- name: start runner service
-  ansible.builtin.systemd_service:
-    name: github-runner
-    daemon-reload: yes
-    state: restarted
-    enabled: true
-
-- name: copy terraform to github-runner
-  ansible.builtin.get_url:
-    url: https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
-    dest: /etc/yum.repos.d/hashicorp.repo
-
-- name: install Terraform
-  ansible.builtin.dnf:
-    name: terraform
-    state: installed
-
-- name: Copy Kubectl
-  ansible.builtin.copy:
-    src: kubernetes.repo
-    dest: /etc/yum.repos.d/kubernetes.repo
-
-- name: install Kubectl
-  ansible.builtin.dnf:
-    name: kubectl
-    state: installed
-
-- name: install docker
-  ansible.builtin.dnf:
-    name: docker
-    state: installed
+#- name: add github runner user
+#  ansible.builtin.user:
+#    name: github-runner
+#
+#- name: add directory in server
+#  ansible.builtin.file:
+#    path: /actions-runner
+#    state: directory
+#    owner: github-runner
+#    group: github-runner
+#
+#- name: download and extract runner
+#  ansible.builtin.unarchive:
+#    src: https://github.com/actions/runner/releases/download/v2.321.0/actions-runner-linux-x64-2.321.0.tar.gz
+#    dest: /actions-runner
+#    remote_src: yes
+#    owner: github-runner
+#    group: github-runner
+#
+#- name: install libicu
+#  ansible.builtin.dnf:
+#    name: libicu
+#    state: installed
+#
+#- name: get runner token
+#  ansible.builtin.shell: |
+#    gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /orgs/siddevsecops007/actions/runners/registration-token | jq .token
+#  register: token
+#  become_user: ec2-user
+#
+#- name: register runner with token
+#  ansible.builtin.shell: |
+#    ./config.sh --unattended --url https://github.com/siddevsecops007 --token {{ token.stdout }} --name {{ ansible_hostname }} --runnergroup Default
+#  become_user: github-runner
+#  args:
+#    chdir: /actions-runner
+#  ignore_errors: yes
+#
+#- name: copy service file
+#  ansible.builtin.copy:
+#    src: github-runner.service
+#    dest: /etc/systemd/system/github-runner.service
+#
+#- name: start runner service
+#  ansible.builtin.systemd_service:
+#    name: github-runner
+#    daemon-reload: yes
+#    state: restarted
+#    enabled: true
+#
+#- name: copy terraform to github-runner
+#  ansible.builtin.get_url:
+#    url: https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+#    dest: /etc/yum.repos.d/hashicorp.repo
+#
+#- name: install Terraform
+#  ansible.builtin.dnf:
+#    name: terraform
+#    state: installed
+#
+#- name: Copy Kubectl
+#  ansible.builtin.copy:
+#    src: kubernetes.repo
+#    dest: /etc/yum.repos.d/kubernetes.repo
+#
+#- name: install Kubectl
+#  ansible.builtin.dnf:
+#    name: kubectl
+#    state: installed
+#
+#- name: install docker
+#  ansible.builtin.dnf:
+#    name: docker
+#    state: installed
 
 - name: lvm layout
   ansible.builtin.include_role:
