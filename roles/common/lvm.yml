@@ -1,7 +1,6 @@
 - name: Increase disk partition
   ansible.builtin.shell: growpart /dev/nvme0n1 4
-
-
+  
 - name: Increase LVM
   ansible.builtin.shell: lvextend -r -L {{item.size}}G /dev/mapper/RootVG-{{item.lv}}
   loop: "{{ lv_input }}"
