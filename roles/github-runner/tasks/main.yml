@@ -71,6 +71,11 @@
     name: kubectl
     state: installed
 
+- name: install docker
+  ansible.builtin.dnf:
+    name: docker
+    state: installed
+
 
 
 
