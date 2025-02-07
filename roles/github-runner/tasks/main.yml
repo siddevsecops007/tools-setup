@@ -85,10 +85,10 @@
     systemctl start docker
 
 
-- name: lvm layout
-  ansible.builtin.include_role:
-    name: common
-    tasks_from: lvm
+#- name: lvm layout
+#  ansible.builtin.include_role:
+#    name: common
+#    tasks_from: lvm
 
 
 - name: Increase disk partition
@@ -99,6 +99,12 @@
   ansible.builtin.shell: lvextend -r -L {{item.size}}G /dev/mapper/RootVG-{{item.lv}}
   loop: "{{ lv_input }}"
   ignore_errors: yes
+
+- name: Install ArgoCD CLI
+  ansible.builtin.get_url:
+    url: https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+    dest: /bin/argocd
+    mode: '0755'
 
 
 
