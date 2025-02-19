@@ -17,7 +17,7 @@ variable "tools" {
 }
 
 variable "zoneid" {
-  default = "Z0839824JM76ZIPWFCGH"
+  default = "Z0949039285DH1J81BA7"
 }
 
 variable "domain_name" {
