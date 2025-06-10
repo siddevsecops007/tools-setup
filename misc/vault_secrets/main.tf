@@ -107,7 +107,7 @@ resource "vault_generic_secret" "shipping" {
     "User": "roboshop",
     "CART_ENDPOINT":  "cart-dev.siddevsecops.icu:8080",
     "DB_HOST":  "mysql-dev.siddevsecops.icu",
-    "mysql_root_password":  "Roboshop@1",
+    "mysql_root_password":  "RoboShop@1",
     "DB_TYPE": "mysql",
     "APP_GIT_URL": "https://github.com/roboshop-devops-project-v3/shipping",
     "DB_USER": "root",
