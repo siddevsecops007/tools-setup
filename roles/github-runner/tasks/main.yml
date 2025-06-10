@@ -1,3 +1,9 @@
+# Following steps need to be run manually as ec2-user
+# sudo curl -L -o /etc/yum.repos.d/gh-cli.repo https://cli.github.com/packages/rpm/gh-cli.repo
+# sudo dnf install gh -y
+# gh auth login -s admin:org
+
+
 - name: adding set prompt
   ansible.builtin.shell: set-prompt {{ tool_name }}
 
@@ -60,51 +66,51 @@
   ansible.builtin.dnf:
     name: terraform
     state: installed
-
-- name: Copy Kubectl
-  ansible.builtin.copy:
-    src: kubernetes.repo
-    dest: /etc/yum.repos.d/kubernetes.repo
-
-- name: install Kubectl
-  ansible.builtin.dnf:
-    name: kubectl
-    state: installed
-
-#- name: install docker
+#
+#- name: Copy Kubectl
+#  ansible.builtin.copy:
+#    src: kubernetes.repo
+#    dest: /etc/yum.repos.d/kubernetes.repo
+#
+#- name: install Kubectl
 #  ansible.builtin.dnf:
-#    name: docker
+#    name: kubectl
 #    state: installed
-
-- name: Install Docker
-  ansible.builtin.shell: |
-    curl -o /etc/yum.repos.d/docker-ce.repo https://download.docker.com/linux/rhel/docker-ce.repo
-    dnf install docker-ce --nobest -y
-    usermod -a -G docker github-runner
-    systemctl enable docker
-    systemctl start docker
-
-
-#- name: lvm layout
-#  ansible.builtin.include_role:
-#    name: common
-#    tasks_from: lvm
-
-
-- name: Increase disk partition
-  ansible.builtin.shell: growpart /dev/nvme0n1 4
-  ignore_errors: yes
-
-- name: Increase LVM
-  ansible.builtin.shell: lvextend -r -L {{item.size}}G /dev/mapper/RootVG-{{item.lv}}
-  loop: "{{ lv_input }}"
-  ignore_errors: yes
-
-- name: Install ArgoCD CLI
-  ansible.builtin.get_url:
-    url: https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-    dest: /bin/argocd
-    mode: '0755'
+#
+##- name: install docker
+##  ansible.builtin.dnf:
+##    name: docker
+##    state: installed
+#
+#- name: Install Docker
+#  ansible.builtin.shell: |
+#    curl -o /etc/yum.repos.d/docker-ce.repo https://download.docker.com/linux/rhel/docker-ce.repo
+#    dnf install docker-ce --nobest -y
+#    usermod -a -G docker github-runner
+#    systemctl enable docker
+#    systemctl start docker
+#
+#
+##- name: lvm layout
+##  ansible.builtin.include_role:
+##    name: common
+##    tasks_from: lvm
+#
+#
+#- name: Increase disk partition
+#  ansible.builtin.shell: growpart /dev/nvme0n1 4
+#  ignore_errors: yes
+#
+#- name: Increase LVM
+#  ansible.builtin.shell: lvextend -r -L {{item.size}}G /dev/mapper/RootVG-{{item.lv}}
+#  loop: "{{ lv_input }}"
+#  ignore_errors: yes
+#
+#- name: Install ArgoCD CLI
+#  ansible.builtin.get_url:
+#    url: https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+#    dest: /bin/argocd
+#    mode: '0755'
 
 
 
